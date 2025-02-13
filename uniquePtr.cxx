@@ -21,7 +21,7 @@ void mainCpp14() {
 }
 
 // C++17
-void mainCpp17() {
+/*void mainCpp17() {
     auto deleter = [](int* p) {
         std::cout << "Deleting value: " << *p << std::endl;
         delete p;
@@ -29,13 +29,13 @@ void mainCpp17() {
     // Utilisation de CTAD en C++17
     std::unique_ptr ptr2(new int(42), deleter);
     std::cout << "Value in C++17: " << *ptr2 << std::endl;
-}
+}*/
 
 int main() {
     std::cout << "C++ Version: " << __cplusplus << std::endl;
 
     mainCpp14();
-    mainCpp17();
+   // mainCpp17();
     return 0;
 }
 
