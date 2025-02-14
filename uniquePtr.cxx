@@ -2,40 +2,35 @@
 #include <iostream>
 
 // Ce code est compatible C++14 et C++17
-// La principale différence pour unique_ptr entre C++14 et C++17
-// est qu'en C++17, les types d'arguments peuvent être déduits (CTAD).
-
-class MaClasse {
+// We can see that for the unique ptr in c++14 we need to specify argument type <...>
+//this won't compile in C++14. It only compile in C++17
+class MyClass {
 public:
-    MaClasse(int x) {}
+    MyClass() { std::cout << "MyClass constructor" << std::endl; }
+    ~MyClass() { std::cout << "MyClass destructor" << std::endl; }
 };
 
 // C++14
 void mainCpp14() {
-    auto deleter = [](int* p) {
-        std::cout << "Deleting value: " << *p << std::endl;
-        delete p;
-    };
-    std::unique_ptr<int, decltype(deleter)> ptr2(new int(42), deleter);
-    std::cout << "Value in C++14: " << *ptr2 << std::endl;
+    std::unique_ptr<MyClass> ptr14(new MyClass);
+    std::cout << "Pointer address in C++14: " << ptr14.get() << std::endl;
+    std::cout << "Using in C++14" << std::endl;
 }
 
 // C++17
-/*void mainCpp17() {
-    auto deleter = [](int* p) {
-        std::cout << "Deleting value: " << *p << std::endl;
-        delete p;
-    };
-    // Utilisation de CTAD en C++17
-    std::unique_ptr ptr2(new int(42), deleter);
-    std::cout << "Value in C++17: " << *ptr2 << std::endl;
-}*/
+void mainCpp17() {
+    // Using CTAD in C++17 with std::make_unique
+    
+    std::unique_ptr ptr17 = std::make_unique<MyClass>();
+    std::cout << "Pointer address in C++17: " << ptr17.get() << std::endl;
+    std::cout << "Using in C++17" << std::endl;
+}
 
 int main() {
     std::cout << "C++ Version: " << __cplusplus << std::endl;
 
-    mainCpp14();
-   // mainCpp17();
+    //mainCpp14();
+    mainCpp17();
     return 0;
 }
 
